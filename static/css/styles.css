@@ -1,0 +1,11 @@
+:root {
+    --font-mono: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
+  }
+
+body, nav{
+    background-color: blanchedalmond;
+}
+
+nav {
+    font-family: var(--font-mono);
+}
