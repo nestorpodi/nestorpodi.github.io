@@ -1,6 +1,6 @@
 :root {
     --font-mono: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
-  }
+}
 
 body, nav{
     background-color: blanchedalmond;
@@ -20,10 +20,14 @@ nav {
     border-bottom: 1px solid #004953;
 }
 
+.navbar-toggler:focus{
+    box-shadow: none;
+}
+
 .circle-img {
     width: 150px;         /* Adjust the size as needed */
     height: 150px;        /* Make the height and width equal */
     border-radius: 50%;   /* Makes the image circular */
     object-fit: cover;    /* Ensures the image covers the container */
     overflow: hidden;     /* Hides the excess image outside the circle */
-  }
+}
