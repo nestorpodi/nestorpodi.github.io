@@ -30,9 +30,9 @@ nav,
 }
 
 .circle-img {
-    width: 150px;         /* Adjust the size as needed */
-    height: 150px;        /* Make the height and width equal */
-    border-radius: 50%;   /* Makes the image circular */
-    object-fit: cover;    /* Ensures the image covers the container */
-    overflow: hidden;     /* Hides the excess image outside the circle */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
 }
