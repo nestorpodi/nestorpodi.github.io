@@ -1,9 +1,15 @@
 :root {
     --font-mono: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
+    --bg-color: #ffebcd;
+    --midnight-green: #004953
+}
+
+a{
+    text-decoration: none;
 }
 
 body, nav{
-    background-color: #ffebcd;
+    background-color: var(--bg-color);
 }
 
 nav,
@@ -14,7 +20,7 @@ nav,
 
 .name-tag{
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .navbar-brand,
@@ -24,7 +30,7 @@ nav,
 
 .nav-link.active{
     padding-bottom: 2px;
-    border-bottom: 1px solid #004953;
+    border-bottom: 1px solid var(--midnight-green);
 }
 
 .navbar-toggler:focus{
@@ -38,3 +44,8 @@ nav,
     object-fit: cover;
     overflow: hidden;
 }
+
+.social-logo {
+    color: var(--midnight-green);
+}
+
