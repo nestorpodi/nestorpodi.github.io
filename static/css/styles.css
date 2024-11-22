@@ -3,11 +3,16 @@
 }
 
 body, nav{
-    background-color: blanchedalmond;
+    background-color: #ffebcd;
 }
 
-nav {
+nav,
+.name-tag {
     font-family: var(--font-mono);
+}
+
+.name-tag{
+    margin: 8px;
 }
 
 .navbar-brand,
