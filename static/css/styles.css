@@ -1,7 +1,8 @@
 :root {
     --font-mono: 'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
     --bg-color: #ffebcd;
-    --midnight-green: #004953
+    --midnight-green: #004953;
+    --midnight-green-op: #0049537a;
 }
 
 a{
@@ -28,6 +29,11 @@ nav,
     color: #004953 !important;
 }
 
+.navbar-brand,
+.nav-link{
+    font-size: 0.95rem;
+}
+
 .nav-link.active{
     padding-bottom: 2px;
     border-bottom: 1px solid var(--midnight-green);
@@ -49,3 +55,52 @@ nav,
     color: var(--midnight-green);
 }
 
+.custom-link{
+    color: var(--midnight-green);
+    padding-bottom: 0px;
+    border-bottom: 1px solid var(--midnight-green-op);
+}
+
+.custom-link:hover{
+    padding-bottom: 0px;
+    border-bottom: 1px solid var(--midnight-green);
+}
+
+
+.section-title{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.proj-name{
+    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0px;
+}
+
+.proj-details{
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: #5f5f5f;
+}
+
+.dashed-list {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0;       /* Optional: Align dashes with the text */
+}
+.dashed-list .dashed-el {
+    position: relative; /* Enables absolute positioning of the dash */
+    padding-left: 20px; /* Adjust space for the dash */
+}
+.dashed-list .dashed-el::before {
+    content: "-";         /* Dash as the marker */
+    position: absolute;   /* Position it relative to the list item */
+    left: 0;              /* Align it with the left edge of the list item */
+}
+
+/* .section-container{
+    border-radius: 4px;
+    border: #004953;
+    border-width: 1px;
+    border-style: solid;
+} */
