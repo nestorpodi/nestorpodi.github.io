@@ -51,8 +51,14 @@ nav,
     overflow: hidden;
 }
 
-.social-logo {
+.social-logo,
+.skills-logo {
     color: var(--midnight-green);
+}
+
+.skills-logo{
+    overflow: visible;
+    width: 40px !important;
 }
 
 .custom-link{
