@@ -116,3 +116,11 @@ nav,
     border-width: 1px;
     border-style: solid;
 } */
+
+.collapsing {
+    transition: height .4s ease !important;
+}
+
+.collapsing{
+    max-height: none;
+}
