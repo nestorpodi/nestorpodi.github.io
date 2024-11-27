@@ -121,6 +121,22 @@ nav,
     transition: height .4s ease !important;
 }
 
-.collapsing{
-    max-height: none;
+.more-info-link{
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    color: #484848;
+    width: fit-content;
+    color: var(--midnight-green);
+    padding-bottom: 0px;
+    border-bottom: 1px solid var(--midnight-green-op);
 }
+
+.collapsible-btn .symbol {
+    transition: transform 0.3s ease; /* Smooth rotation */
+  }
+  .collapsible-btn.collapsed .symbol {
+    transform: rotate(0deg); /* Default state */
+  }
+  .collapsible-btn:not(.collapsed) .symbol {
+    transform: rotate(90deg); /* Rotated state */
+  }
