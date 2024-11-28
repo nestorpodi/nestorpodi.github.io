@@ -131,12 +131,10 @@ nav,
     border-bottom: 1px solid var(--midnight-green-op);
 }
 
-.collapsible-btn .symbol {
-    transition: transform 0.3s ease; /* Smooth rotation */
-  }
-  .collapsible-btn.collapsed .symbol {
-    transform: rotate(0deg); /* Default state */
-  }
-  .collapsible-btn:not(.collapsed) .symbol {
-    transform: rotate(90deg); /* Rotated state */
-  }
+.container-section{
+    margin-top: 3.0rem;
+}
+
+.proj-name{
+    margin-top: 0.6rem;
+}
