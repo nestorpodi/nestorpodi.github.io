@@ -139,6 +139,11 @@ nav,
     margin-top: 0.6rem;
 }
 
+#about-section{
+    margin-top: 5rem;
+}
+
+
 #about-section,
 .container-section{
     scroll-margin-top: 56px; /* Match this value to the height of your navbar */
