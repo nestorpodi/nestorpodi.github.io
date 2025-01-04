@@ -143,8 +143,17 @@ nav,
     margin-top: 5rem;
 }
 
+.about-details{
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    color: #202020;
+}
 
 #about-section,
 .container-section{
     scroll-margin-top: 56px; /* Match this value to the height of your navbar */
+}
+
+.text-justify{
+    text-align:justify !important;
 }
