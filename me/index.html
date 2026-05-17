@@ -3,320 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Nestor F. Porras-Diaz — Refined Terminal</title>
+<title>Nestor F. Porras-Diaz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="icon" href="../static/imgs/laptop.png" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg: #f4ead2;
-    --bg-elev: #ede0bf;
-    --fg: #2a2620;
-    --fg-mid: #6b5d49;
-    --fg-mute: #9c8c70;
-    --line: rgba(42,38,32,.14);
-    --line-strong: rgba(42,38,32,.32);
-    --accent: #b85c3a;
-    --accent-soft: rgba(184,92,58,.12);
-    --selection: rgba(184,92,58,.22);
-    --card: #f9f1da;
-    --pill: rgba(42,38,32,.06);
-  }
-  [data-theme="dark"] {
-    --bg: #161310;
-    --bg-elev: #1f1b16;
-    --fg: #ede1c7;
-    --fg-mid: #a59478;
-    --fg-mute: #6f6149;
-    --line: rgba(237,225,199,.12);
-    --line-strong: rgba(237,225,199,.28);
-    --accent: #e2885e;
-    --accent-soft: rgba(226,136,94,.14);
-    --selection: rgba(226,136,94,.24);
-    --card: #1c1813;
-    --pill: rgba(237,225,199,.06);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    font-size: 15.5px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transition: background .35s ease, color .35s ease;
-  }
-  ::selection { background: var(--selection); }
-
-  .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: 'liga' 0; }
-  .serif { font-family: 'Newsreader', Georgia, serif; }
-
-  a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line-strong); transition: color .15s, border-color .15s; }
-  a:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ── Top nav ───────────────────────────────────────────────────── */
-  .nav {
-    position: sticky; top: 0; z-index: 50;
-    backdrop-filter: blur(12px);
-    background: color-mix(in oklab, var(--bg) 82%, transparent);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-inner {
-    max-width: 1240px; margin: 0 auto;
-    display: flex; align-items: center; gap: 28px;
-    padding: 14px 40px;
-  }
-  .brand { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); font-size: 14px; letter-spacing: -.01em; }
-  .nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
-  .nav-links a { border: 0; font-size: 13.5px; color: var(--fg-mid); padding: 6px 2px; position: relative; }
-  .nav-links a:hover { color: var(--fg); }
-  .nav-links a.active { color: var(--fg); }
-  .nav-links a.active::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1.5px; background: var(--accent);
-  }
-  .theme-btn {
-    border: 1px solid var(--line-strong); background: transparent; color: var(--fg-mid);
-    width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all .2s; padding: 0;
-  }
-  .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ── Layout ────────────────────────────────────────────────────── */
-  .layout {
-    max-width: 1240px; margin: 0 auto;
-    display: grid; grid-template-columns: 320px 1fr; gap: 72px;
-    padding: 56px 40px 96px;
-  }
-  .sidebar { max-height: calc(100vh - 100px); overflow-y: auto; padding-right: 8px; }
-  .sidebar::-webkit-scrollbar { width: 0; }
-
-  /* ── Profile ───────────────────────────────────────────────────── */
-  .avatar {
-    width: 88px; height: 88px; border-radius: 50%;
-    border: 1px solid var(--line-strong);
-    overflow: hidden;
-    margin-bottom: 18px;
-    flex-shrink: 0;
-  }
-  .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .name { font-size: 26px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 6px; }
-  .role { color: var(--fg-mid); font-size: 14.5px; line-height: 1.5; margin-bottom: 4px; }
-  .role .mono { font-size: 12.5px; color: var(--fg-mute); }
-  .affil { color: var(--fg-mid); font-size: 13.5px; margin-bottom: 22px; }
-  .tagline {
-    border-left: 2px solid var(--accent); padding: 4px 0 4px 14px;
-    color: var(--fg); font-size: 15px; line-height: 1.5; margin: 22px 0 20px;
-    font-style: italic;
-  }
-  .bio { color: var(--fg-mid); font-size: 14px; line-height: 1.7; }
-  .bio strong { color: var(--fg); font-weight: 600; }
-
-  .actions { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
-  .actions a, .actions button {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 14px; border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    border: 1px solid var(--line-strong);
-    background: transparent; color: var(--fg) !important;
-    cursor: pointer;
-    transition: transform .15s, filter .15s, border-color .15s, color .15s, background .15s;
-    white-space: nowrap;
-  }
-  .actions a:hover, .actions button:hover { border-color: var(--accent); color: var(--accent) !important; transform: translateY(-1px); }
-  .actions svg { width: 13px; height: 13px; }
-  .actions .primary {
-    background: var(--fg); color: var(--bg) !important;
-    border-color: var(--fg);
-    font-weight: 500;
-  }
-  .actions .primary:hover { background: var(--accent); border-color: var(--accent); color: #fff !important; filter: none; }
-  [data-theme="dark"] .actions .primary { background: var(--accent); border-color: var(--accent); color: #1a1612 !important; }
-  [data-theme="dark"] .actions .primary:hover { filter: brightness(1.08); color: #1a1612 !important; }
-
-  /* ── Main column / sections ─────────────────────────────────────── */
-  main { min-width: 0; }
-  section { margin-bottom: 72px; scroll-margin-top: 80px; }
-  section:last-of-type { margin-bottom: 0; }
-
-  .sec-header {
-    display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;
-    padding-bottom: 14px; border-bottom: 1px solid var(--line);
-  }
-  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 500; }
-  .sec-title { font-size: 22px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
-  .sec-aside { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-mute); }
-
-  /* ── Item / entry pattern ───────────────────────────────────────── */
-  .entry { display: grid; grid-template-columns: 1fr auto; gap: 12px 24px; margin-bottom: 28px; }
-  .entry:last-child { margin-bottom: 0; }
-  .entry-title { font-size: 16px; font-weight: 600; line-height: 1.35; margin: 0; }
-  .entry-org { color: var(--fg-mid); font-size: 14px; margin-top: 2px; }
-  .entry-meta { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); white-space: nowrap; padding-top: 4px; }
-  .entry-body { grid-column: 1 / -1; color: var(--fg-mid); font-size: 14.5px; line-height: 1.7; margin-top: 8px; }
-  .entry-body ul { margin: 8px 0 0; padding-left: 0; list-style: none; }
-  .entry-body ul li { position: relative; padding-left: 20px; margin-bottom: 8px; }
-  .entry-body ul li::before {
-    content: '›'; position: absolute; left: 4px; top: 0; color: var(--accent); font-family: 'JetBrains Mono', monospace;
-  }
-  .entry-body em { color: var(--fg); font-style: italic; }
-
-  /* ── Education (serif, editorial) ──────────────────────────── */
-  .edu { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; padding: 18px 0; border-bottom: 1px dashed var(--line); }
-  .edu:last-child { border-bottom: 0; }
-  .edu-title { font-family: 'Newsreader', Georgia, serif; font-size: 22px; font-weight: 500; line-height: 1.25; margin: 0 0 4px; letter-spacing: -.005em; }
-  .edu-org { color: var(--fg-mid); font-size: 14.5px; }
-  .edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); white-space: nowrap; padding-top: 8px; }
-  .edu-note { grid-column: 1 / -1; margin: 8px 0 0; color: var(--fg-mid); font-size: 14.5px; line-height: 1.65; max-width: 62ch; }
-  .edu-note em { color: var(--accent); font-style: italic; font-weight: 500; }
-
-  /* ── Awards (serif, editorial) ─────────────────────────────── */
-  .award { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--line); }
-  .award:last-child { border-bottom: 0; }
-  .award-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); padding-top: 6px; }
-  .award-title { font-family: 'Newsreader', Georgia, serif; font-size: 20px; font-weight: 500; margin: 0 0 4px; line-height: 1.3; letter-spacing: -.005em; }
-  .award p { margin: 0; color: var(--fg-mid); font-size: 14.5px; line-height: 1.6; max-width: 68ch; }
-
-  /* ── Skills / chips ─────────────────────────────────────────────── */
-  .skills-grid { display: grid; grid-template-columns: 140px 1fr; gap: 14px 24px; }
-  .skill-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-mute); padding-top: 4px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    padding: 4px 9px; border-radius: 5px;
-    background: var(--pill); color: var(--fg);
-    border: 1px solid transparent;
-    transition: all .12s;
-    white-space: nowrap;
-  }
-  .chip:hover { border-color: var(--line-strong); transform: translateY(-1px); }
-  .chip.primary { color: var(--accent); background: var(--accent-soft); }
-
-  /* ── Publications ──────────────────────────────────────────────── */
-  .pub-filters { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-  .pub-filter {
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-    padding: 5px 10px; border-radius: 6px;
-    background: transparent; border: 1px solid var(--line-strong);
-    color: var(--fg-mid); cursor: pointer; transition: all .15s;
-    white-space: nowrap;
-  }
-  .pub-filter:hover { color: var(--fg); }
-  .pub-filter.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-  [data-theme="dark"] .pub-filter.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-  .pub {
-    padding: 18px 0; border-bottom: 1px solid var(--line);
-  }
-  .pub:last-child { border-bottom: 0; }
-  .pub-title { font-size: 15.5px; font-weight: 600; line-height: 1.4; margin: 0 0 6px; }
-  .pub-venue { color: var(--fg-mid); font-size: 13.5px; line-height: 1.55; margin-bottom: 6px; }
-  .pub-authors { font-size: 13px; color: var(--fg-mid); }
-  .pub-authors .me { color: var(--fg); font-weight: 600; }
-  .pub-actions { display: flex; gap: 14px; margin-top: 10px; align-items: center; }
-  .pub-action {
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-    padding: 4px 9px; border-radius: 5px; cursor: pointer;
-    background: transparent; border: 1px solid var(--line-strong);
-    color: var(--fg-mid); display: inline-flex; align-items: center; gap: 6px;
-    transition: all .15s;
-    white-space: nowrap;
-  }
-  .pub-action:hover { color: var(--accent); border-color: var(--accent); }
-  .pub-action svg { width: 11px; height: 11px; }
-  .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); margin-left: auto; }
-
-  /* ── Languages ─────────────────────────────────────────────────── */
-  .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 28px; }
-  .lang-row { display: flex; flex-direction: column; gap: 6px; }
-  .lang-head { display: flex; justify-content: space-between; align-items: baseline; }
-  .lang-name { font-size: 14.5px; font-weight: 500; }
-  .lang-level { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fg-mute); }
-  .lang-bar { height: 4px; background: var(--pill); border-radius: 2px; overflow: hidden; }
-  .lang-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
-
-  /* ── Gallery ───────────────────────────────────────────────────── */
-  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .gphoto {
-    aspect-ratio: 4/3; border-radius: 6px;
-    background:
-      repeating-linear-gradient(135deg, var(--pill) 0 8px, transparent 8px 16px),
-      var(--bg-elev);
-    border: 1px solid var(--line);
-    display: flex; align-items: flex-end; justify-content: flex-start;
-    padding: 8px 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--fg-mute);
-    cursor: pointer; transition: transform .15s, border-color .15s;
-  }
-  .gphoto:hover { transform: translateY(-2px); border-color: var(--line-strong); }
-
-  /* ── Toast / copy feedback ─────────────────────────────────────── */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: var(--fg); color: var(--bg);
-    padding: 10px 18px; border-radius: 8px;
-    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
-    z-index: 100; opacity: 0; pointer-events: none;
-    transition: opacity .2s, transform .2s;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* ── Caret blink for cute touch ────────────────────────────────── */
-  .caret { display: inline-block; width: 8px; height: 1em; background: var(--accent); vertical-align: -2px; margin-left: 2px; animation: blink 1.05s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* ── Desktop: fixed sidebar (avoids sticky release shift at scroll end) ── */
-  @media (min-width: 921px) {
-    :root {
-      --layout-max: 1240px;
-      --layout-pad-x: 40px;
-      --layout-pad-top: 56px;
-      --sidebar-w: 320px;
-      --col-gap: 72px;
-      --nav-h: 59px;
-      --sidebar-top: calc(var(--nav-h) + var(--layout-pad-top));
-    }
-    .nav {
-      height: var(--nav-h);
-      box-sizing: border-box;
-    }
-    .nav-inner {
-      height: 100%;
-      align-items: center;
-    }
-    .layout {
-      display: block;
-      max-width: var(--layout-max);
-      padding: var(--layout-pad-top) var(--layout-pad-x) 96px;
-      padding-left: calc(var(--layout-pad-x) + var(--sidebar-w) + var(--col-gap));
-    }
-    .sidebar {
-      position: fixed;
-      top: var(--sidebar-top);
-      left: max(var(--layout-pad-x), calc((100vw - var(--layout-max)) / 2 + var(--layout-pad-x)));
-      width: var(--sidebar-w);
-      max-height: calc(100vh - var(--sidebar-top) - 16px);
-    }
-  }
-
-  /* ── Responsive (preview-safe) ──────────────────────────────────── */
-  @media (max-width: 920px) {
-    .layout { grid-template-columns: 1fr; gap: 40px; padding: 32px 24px 60px; }
-    .sidebar { position: static; max-height: none; }
-    .nav-inner { padding: 12px 24px; }
-    .nav-links { gap: 14px; }
-  }
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -331,13 +23,40 @@
       <a href="#skills">Skills</a>
       <a href="#publications">Publications</a>
       <a href="#languages">Languages</a>
-      <a href="#gallery">Gallery</a>
-      <button class="theme-btn" id="themeBtn" title="Toggle theme">
+      <!-- <a href="#gallery">Gallery</a> -->
+    </div>
+    <div class="nav-end">
+      <button class="theme-btn" id="themeBtn" title="Toggle theme" type="button">
         <svg id="themeIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+      <button class="nav-menu-btn" id="navMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navPanel">
+        <span class="nav-menu-icon" aria-hidden="true"></span>
       </button>
     </div>
   </div>
 </nav>
+
+<div class="nav-panel" id="navPanel" aria-hidden="true">
+  <div class="nav-panel-backdrop" id="navPanelBackdrop"></div>
+  <aside class="nav-panel-drawer" role="dialog" aria-modal="true" aria-labelledby="navPanelTitle">
+    <header class="nav-panel-header">
+      <h2 class="nav-panel-title" id="navPanelTitle">Menu</h2>
+      <button type="button" class="nav-panel-close" id="navPanelClose" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <nav class="nav-panel-links">
+      <!-- <a href="#about">About</a> -->
+      <a href="#education">Education</a>
+      <a href="#awards">Awards</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#publications">Publications</a>
+      <a href="#languages">Languages</a>
+      <!-- <a href="#gallery">Gallery</a> -->
+    </nav>
+  </aside>
+</div>
 
 <div class="layout">
 
@@ -751,84 +470,8 @@
 
 <div class="toast" id="toast">copied to clipboard</div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Theme toggle ─────────────────────────────────────────────
-  const themeBtn = document.getElementById('themeBtn');
-  const themeIcon = document.getElementById('themeIcon');
-  const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
-  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-  function setTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    themeIcon.innerHTML = t === 'dark' ? sunSvg : moonSvg;
-    try { localStorage.setItem('npd-theme', t); } catch {}
-  }
-  const stored = (() => { try { return localStorage.getItem('npd-theme'); } catch { return null; } })();
-  setTheme(stored || 'light');
-  themeBtn.addEventListener('click', () => {
-    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  });
-
-  // Scroll-spy for nav ───────────────────────────────────────
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  const sections = [...navLinks].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
-  const spy = () => {
-    const y = window.scrollY + 120;
-    let active = sections[0]?.id;
-    for (const s of sections) if (s.offsetTop <= y) active = s.id;
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
-  };
-  window.addEventListener('scroll', spy, { passive: true });
-  spy();
-
-  // Publication filters ──────────────────────────────────────
-  const filters = document.querySelectorAll('.pub-filter');
-  const pubs = document.querySelectorAll('.pub');
-  const pubCount = document.getElementById('pubCount');
-  filters.forEach(b => b.addEventListener('click', () => {
-    filters.forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    const f = b.dataset.filter;
-    let n = 0;
-    pubs.forEach(p => {
-      const show = f === 'all' || p.dataset.year === f || p.dataset.type === f;
-      p.style.display = show ? '' : 'none';
-      if (show) n++;
-    });
-    pubCount.textContent = `// ${n} paper${n === 1 ? '' : 's'}`;
-  }));
-
-  // BibTeX copy ──────────────────────────────────────────────
-  const toast = document.getElementById('toast');
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(() => toast.classList.remove('show'), 1600);
-  }
-  document.querySelectorAll('.copy-bib').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const key = btn.dataset.bib;
-      const article = btn.closest('.pub');
-      const title = article.querySelector('.pub-title').textContent.trim();
-      const venue = article.querySelector('.pub-venue').textContent.trim();
-      const authors = article.querySelector('.pub-authors').textContent.trim();
-      const year = article.querySelector('.pub-year')?.textContent.trim() || article.dataset.year || '';
-      const bib = `@article{${key},\n  title   = {${title}},\n  author  = {${authors}},\n  journal = {${venue}},\n  year    = {${year}}\n}`;
-      try {
-        await navigator.clipboard.writeText(bib);
-        showToast('bibtex copied');
-      } catch {
-        showToast('copy failed');
-      }
-    });
-  });
-
-  // CV download stub ─────────────────────────────────────────
-  document.getElementById('cvBtn').addEventListener('click', e => {
-    e.preventDefault();
-    showToast('CV.pdf — placeholder');
-  });
-</script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>
