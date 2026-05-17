@@ -419,4 +419,12 @@ section:last-of-type { margin-bottom: 0; }
   .nav-links { display: none; }
   .nav-end { margin-left: auto; }
   .nav-menu-btn { display: flex; }
+  .award {
+    grid-template-columns: 52px 1fr;
+    gap: 12px;
+  }
+  .skills-grid {
+    grid-template-columns: 96px 1fr;
+    gap: 10px 14px;
+  }
 }
