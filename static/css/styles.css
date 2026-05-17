@@ -3,6 +3,8 @@
     --bg-color: #ffebcd;
     --midnight-green: #004953;
     --midnight-green-op: #0049537a;
+    --site-max-width: 1480px;
+    --navbar-height: 56px;
 }
 
 a{
@@ -154,6 +156,99 @@ nav,
 
 #about-section{
     margin-top: 5rem;
+}
+
+.page-layout {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+}
+
+@media (min-width: 992px) {
+    .navbar .container {
+        max-width: var(--site-max-width);
+    }
+}
+
+.profile-social {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-content .container-section:first-child {
+    margin-top: 0;
+}
+
+@media (min-width: 992px) {
+    .page-layout {
+        display: flex;
+        gap: 4rem;
+        align-items: flex-start;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
+    #about-section {
+        margin-top: 0;
+    }
+
+    .profile-sidebar {
+        flex: 0 0 460px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: sticky;
+        top: var(--navbar-height);
+        align-self: flex-start;
+        height: calc(100vh - var(--navbar-height));
+        box-sizing: border-box;
+        padding: 1.5rem 0;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+
+    .profile-identity {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .profile-sidebar .profile-photo {
+        flex-shrink: 0;
+        margin: 0;
+    }
+
+    .main-content {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-sidebar {
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .profile-identity {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .profile-sidebar .profile-photo {
+        flex-shrink: 0;
+        margin: 0;
+    }
 }
 
 .about-details{
