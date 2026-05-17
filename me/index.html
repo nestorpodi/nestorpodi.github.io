@@ -1,416 +1,767 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>NestorPoDi</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nestor F. Porras-Diaz — Refined Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4ead2;
+    --bg-elev: #ede0bf;
+    --fg: #2a2620;
+    --fg-mid: #6b5d49;
+    --fg-mute: #9c8c70;
+    --line: rgba(42,38,32,.14);
+    --line-strong: rgba(42,38,32,.32);
+    --accent: #b85c3a;
+    --accent-soft: rgba(184,92,58,.12);
+    --selection: rgba(184,92,58,.22);
+    --card: #f9f1da;
+    --pill: rgba(42,38,32,.06);
+  }
+  [data-theme="dark"] {
+    --bg: #161310;
+    --bg-elev: #1f1b16;
+    --fg: #ede1c7;
+    --fg-mid: #a59478;
+    --fg-mute: #6f6149;
+    --line: rgba(237,225,199,.12);
+    --line-strong: rgba(237,225,199,.28);
+    --accent: #e2885e;
+    --accent-soft: rgba(226,136,94,.14);
+    --selection: rgba(226,136,94,.24);
+    --card: #1c1813;
+    --pill: rgba(237,225,199,.06);
+  }
 
-        <link rel="icon" href="../static/imgs/laptop.png" type="image/x-icon">
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background .35s ease, color .35s ease;
+  }
+  ::selection { background: var(--selection); }
 
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="../static/css/styles.css">
-    </head>
-    <body>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container navbar-container">
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navSidePanel" aria-controls="navSidePanel" aria-label="Open menu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand navbar-brand-mobile d-lg-none" href="#about-section">NestorPoDi</a>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <a class="navbar-brand me-5 d-none d-lg-inline-block" href="#">NestorPoDi</a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="#about-section">About</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#education-section">Education</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#awards-section">Awards</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#experience-section">Experience</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#publications-section">Publications</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+  .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: 'liga' 0; }
+  .serif { font-family: 'Newsreader', Georgia, serif; }
 
-        <div class="offcanvas offcanvas-start nav-side-panel" tabindex="-1" id="navSidePanel" aria-labelledby="navSidePanelLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="navSidePanelLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#about-section" data-bs-dismiss="offcanvas">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#education-section" data-bs-dismiss="offcanvas">Education</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#awards-section" data-bs-dismiss="offcanvas">Awards</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#experience-section" data-bs-dismiss="offcanvas">Experience</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#publications-section" data-bs-dismiss="offcanvas">Publications</a>
-                    </li>
-                </ul>
-            </div>
+  a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line-strong); transition: color .15s, border-color .15s; }
+  a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── Top nav ───────────────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; align-items: center; gap: 28px;
+    padding: 14px 40px;
+  }
+  .brand { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); font-size: 14px; letter-spacing: -.01em; }
+  .nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+  .nav-links a { border: 0; font-size: 13.5px; color: var(--fg-mid); padding: 6px 2px; position: relative; }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-links a.active { color: var(--fg); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1.5px; background: var(--accent);
+  }
+  .theme-btn {
+    border: 1px solid var(--line-strong); background: transparent; color: var(--fg-mid);
+    width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .2s; padding: 0;
+  }
+  .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── Layout ────────────────────────────────────────────────────── */
+  .layout {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: 320px 1fr; gap: 72px;
+    padding: 56px 40px 96px;
+  }
+  .sidebar { max-height: calc(100vh - 100px); overflow-y: auto; padding-right: 8px; }
+  .sidebar::-webkit-scrollbar { width: 0; }
+
+  /* ── Profile ───────────────────────────────────────────────────── */
+  .avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    background:
+      repeating-linear-gradient(45deg, var(--pill) 0 6px, transparent 6px 12px),
+      var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fg-mute); font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    margin-bottom: 18px;
+  }
+  .name { font-size: 26px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 6px; }
+  .role { color: var(--fg-mid); font-size: 14.5px; line-height: 1.5; margin-bottom: 4px; }
+  .role .mono { font-size: 12.5px; color: var(--fg-mute); }
+  .affil { color: var(--fg-mid); font-size: 13.5px; margin-bottom: 22px; }
+  .tagline {
+    border-left: 2px solid var(--accent); padding: 4px 0 4px 14px;
+    color: var(--fg); font-size: 15px; line-height: 1.5; margin: 22px 0 20px;
+    font-style: italic;
+  }
+  .bio { color: var(--fg-mid); font-size: 14px; line-height: 1.7; }
+  .bio strong { color: var(--fg); font-weight: 600; }
+
+  .actions { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+  .actions a, .actions button {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 14px; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    border: 1px solid var(--line-strong);
+    background: transparent; color: var(--fg) !important;
+    cursor: pointer;
+    transition: transform .15s, filter .15s, border-color .15s, color .15s, background .15s;
+    white-space: nowrap;
+  }
+  .actions a:hover, .actions button:hover { border-color: var(--accent); color: var(--accent) !important; transform: translateY(-1px); }
+  .actions svg { width: 13px; height: 13px; }
+  .actions .primary {
+    background: var(--fg); color: var(--bg) !important;
+    border-color: var(--fg);
+    font-weight: 500;
+  }
+  .actions .primary:hover { background: var(--accent); border-color: var(--accent); color: #fff !important; filter: none; }
+  [data-theme="dark"] .actions .primary { background: var(--accent); border-color: var(--accent); color: #1a1612 !important; }
+  [data-theme="dark"] .actions .primary:hover { filter: brightness(1.08); color: #1a1612 !important; }
+
+  /* ── Main column / sections ─────────────────────────────────────── */
+  main { min-width: 0; }
+  section { margin-bottom: 72px; scroll-margin-top: 80px; }
+  section:last-of-type { margin-bottom: 0; }
+
+  .sec-header {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 500; }
+  .sec-title { font-size: 22px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+  .sec-aside { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-mute); }
+
+  /* ── Item / entry pattern ───────────────────────────────────────── */
+  .entry { display: grid; grid-template-columns: 1fr auto; gap: 12px 24px; margin-bottom: 28px; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-title { font-size: 16px; font-weight: 600; line-height: 1.35; margin: 0; }
+  .entry-org { color: var(--fg-mid); font-size: 14px; margin-top: 2px; }
+  .entry-meta { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); white-space: nowrap; padding-top: 4px; }
+  .entry-body { grid-column: 1 / -1; color: var(--fg-mid); font-size: 14.5px; line-height: 1.7; margin-top: 8px; }
+  .entry-body ul { margin: 8px 0 0; padding-left: 0; list-style: none; }
+  .entry-body ul li { position: relative; padding-left: 20px; margin-bottom: 8px; }
+  .entry-body ul li::before {
+    content: '›'; position: absolute; left: 4px; top: 0; color: var(--accent); font-family: 'JetBrains Mono', monospace;
+  }
+  .entry-body em { color: var(--fg); font-style: italic; }
+
+  /* ── Education (serif, editorial) ──────────────────────────── */
+  .edu { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; padding: 18px 0; border-bottom: 1px dashed var(--line); }
+  .edu:last-child { border-bottom: 0; }
+  .edu-title { font-family: 'Newsreader', Georgia, serif; font-size: 22px; font-weight: 500; line-height: 1.25; margin: 0 0 4px; letter-spacing: -.005em; }
+  .edu-org { color: var(--fg-mid); font-size: 14.5px; }
+  .edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); white-space: nowrap; padding-top: 8px; }
+  .edu-note { grid-column: 1 / -1; margin: 8px 0 0; color: var(--fg-mid); font-size: 14.5px; line-height: 1.65; max-width: 62ch; }
+  .edu-note em { color: var(--accent); font-style: italic; font-weight: 500; }
+
+  /* ── Awards (serif, editorial) ─────────────────────────────── */
+  .award { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--line); }
+  .award:last-child { border-bottom: 0; }
+  .award-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); padding-top: 6px; }
+  .award-title { font-family: 'Newsreader', Georgia, serif; font-size: 20px; font-weight: 500; margin: 0 0 4px; line-height: 1.3; letter-spacing: -.005em; }
+  .award p { margin: 0; color: var(--fg-mid); font-size: 14.5px; line-height: 1.6; max-width: 58ch; }
+
+  /* ── Skills / chips ─────────────────────────────────────────────── */
+  .skills-grid { display: grid; grid-template-columns: 140px 1fr; gap: 14px 24px; }
+  .skill-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-mute); padding-top: 4px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 4px 9px; border-radius: 5px;
+    background: var(--pill); color: var(--fg);
+    border: 1px solid transparent;
+    transition: all .12s;
+    white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+  .chip.primary { color: var(--accent); background: var(--accent-soft); }
+
+  /* ── Publications ──────────────────────────────────────────────── */
+  .pub-filters { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .pub-filter {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    padding: 5px 10px; border-radius: 6px;
+    background: transparent; border: 1px solid var(--line-strong);
+    color: var(--fg-mid); cursor: pointer; transition: all .15s;
+    white-space: nowrap;
+  }
+  .pub-filter:hover { color: var(--fg); }
+  .pub-filter.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  [data-theme="dark"] .pub-filter.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .pub {
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .pub:last-child { border-bottom: 0; }
+  .pub-title { font-size: 15.5px; font-weight: 600; line-height: 1.4; margin: 0 0 6px; }
+  .pub-venue { color: var(--fg-mid); font-size: 13.5px; line-height: 1.55; margin-bottom: 6px; }
+  .pub-authors { font-size: 13px; color: var(--fg-mid); }
+  .pub-authors .me { color: var(--fg); font-weight: 600; }
+  .pub-actions { display: flex; gap: 14px; margin-top: 10px; align-items: center; }
+  .pub-action {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    padding: 4px 9px; border-radius: 5px; cursor: pointer;
+    background: transparent; border: 1px solid var(--line-strong);
+    color: var(--fg-mid); display: inline-flex; align-items: center; gap: 6px;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .pub-action:hover { color: var(--accent); border-color: var(--accent); }
+  .pub-action svg { width: 11px; height: 11px; }
+  .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-mute); margin-left: auto; }
+
+  /* ── Languages ─────────────────────────────────────────────────── */
+  .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 28px; }
+  .lang-row { display: flex; flex-direction: column; gap: 6px; }
+  .lang-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .lang-name { font-size: 14.5px; font-weight: 500; }
+  .lang-level { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fg-mute); }
+  .lang-bar { height: 4px; background: var(--pill); border-radius: 2px; overflow: hidden; }
+  .lang-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+
+  /* ── Gallery ───────────────────────────────────────────────────── */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gphoto {
+    aspect-ratio: 4/3; border-radius: 6px;
+    background:
+      repeating-linear-gradient(135deg, var(--pill) 0 8px, transparent 8px 16px),
+      var(--bg-elev);
+    border: 1px solid var(--line);
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 8px 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--fg-mute);
+    cursor: pointer; transition: transform .15s, border-color .15s;
+  }
+  .gphoto:hover { transform: translateY(-2px); border-color: var(--line-strong); }
+
+  /* ── Toast / copy feedback ─────────────────────────────────────── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--fg); color: var(--bg);
+    padding: 10px 18px; border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    z-index: 100; opacity: 0; pointer-events: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── Caret blink for cute touch ────────────────────────────────── */
+  .caret { display: inline-block; width: 8px; height: 1em; background: var(--accent); vertical-align: -2px; margin-left: 2px; animation: blink 1.05s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── Desktop: fixed sidebar (avoids sticky release shift at scroll end) ── */
+  @media (min-width: 921px) {
+    :root {
+      --layout-max: 1240px;
+      --layout-pad-x: 40px;
+      --layout-pad-top: 56px;
+      --sidebar-w: 320px;
+      --col-gap: 72px;
+      --nav-h: 59px;
+      --sidebar-top: calc(var(--nav-h) + var(--layout-pad-top));
+    }
+    .nav {
+      height: var(--nav-h);
+      box-sizing: border-box;
+    }
+    .nav-inner {
+      height: 100%;
+      align-items: center;
+    }
+    .layout {
+      display: block;
+      max-width: var(--layout-max);
+      padding: var(--layout-pad-top) var(--layout-pad-x) 96px;
+      padding-left: calc(var(--layout-pad-x) + var(--sidebar-w) + var(--col-gap));
+    }
+    .sidebar {
+      position: fixed;
+      top: var(--sidebar-top);
+      left: max(var(--layout-pad-x), calc((100vw - var(--layout-max)) / 2 + var(--layout-pad-x)));
+      width: var(--sidebar-w);
+      max-height: calc(100vh - var(--sidebar-top) - 16px);
+    }
+  }
+
+  /* ── Responsive (preview-safe) ──────────────────────────────────── */
+  @media (max-width: 920px) {
+    .layout { grid-template-columns: 1fr; gap: 40px; padding: 32px 24px 60px; }
+    .sidebar { position: static; max-height: none; }
+    .nav-inner { padding: 12px 24px; }
+    .nav-links { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="brand">~/nestorpodi</span>
+    <div class="nav-links">
+      <!-- <a href="#about" class="active">About</a> -->
+      <a href="#education">Education</a>
+      <a href="#awards">Awards</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#publications">Publications</a>
+      <a href="#languages">Languages</a>
+      <a href="#gallery">Gallery</a>
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">
+        <svg id="themeIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <aside class="sidebar" id="about">
+    <div class="avatar">photo</div>
+    <h1 class="name">Nestor F. Porras-Diaz</h1>
+    <div class="role"><span>AI Researcher &amp; Computer Engineer</span></div>
+    <div class="affil"><span class="mono">Ph.D. (C) ·</span> University of Delaware</div>
+
+    <p class="tagline">I use generative AI and machine learning to improve the Earth and planetary models we have.<span class="caret"></span></p>
+
+    <p class="bio">
+      Ph.D. Candidate specializing in <strong>Generative AI</strong>, <strong>Deep Learning</strong>, and <strong>Data Science</strong>, with multiple journal and conference publications. Experienced in designing Transformers, Vision Transformers, and Diffusion Models. Currently collaborating with teams at the University of Delaware and <strong>NASA</strong> to improve remote sensing imagery systems.
+    </p>
+
+    <div class="actions">
+      <a href="#" class="primary" id="cvBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        download CV
+      </a>
+      <a href="/cdn-cgi/l/email-protection#ebc8" title="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        email
+      </a>
+      <a href="#" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.9 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        github
+      </a>
+      <a href="#" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        linkedin
+      </a>
+      <a href="#" title="Google Scholar">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+        scholar
+      </a>
+    </div>
+  </aside>
+
+  <main>
+
+    <section id="education">
+      <header class="sec-header">
+        <span class="sec-num">§01</span>
+        <h2 class="sec-title">Education</h2>
+      </header>
+
+      <div class="edu">
+        <div>
+          <h3 class="edu-title">Ph.D. and M.S. in Electrical &amp; Computer Engineering</h3>
+          <div class="edu-org">University of Delaware</div>
+        </div>
+        <div class="edu-meta">Jan 2022 — Present</div>
+        <p class="edu-note"><em>Research focus —</em> Enhancement of remote sensing imaging systems with Generative AI.</p>
+      </div>
+
+      <div class="edu">
+        <div>
+          <h3 class="edu-title">Bachelor of Computer Engineering</h3>
+          <div class="edu-org">Universidad de La Sabana</div>
+        </div>
+        <div class="edu-meta">Jan 2017 — Dec 2021</div>
+        <p class="edu-note">Full merit scholarship · Sabana Herons humanoid robotics team lead.</p>
+      </div>
+    </section>
+
+    <section id="awards">
+      <header class="sec-header">
+        <span class="sec-num">§02</span>
+        <h2 class="sec-title">Awards &amp; recognition</h2>
+      </header>
+
+      <div class="award">
+        <div class="award-year">2020</div>
+        <div>
+          <h3 class="award-title">Distinguished Student Award</h3>
+          <p>For outstanding academic achievement — one of the highest GPAs, excellence in extracurriculars.</p>
+        </div>
+      </div>
+
+      <div class="award">
+        <div class="award-year">2019</div>
+        <div>
+          <h3 class="award-title">RoboCup SPL — Runner-up Recognition</h3>
+          <p>Research on genetic-algorithm-tuned defensive strategies recognized by the RoboCup Committee.</p>
+        </div>
+      </div>
+
+      <div class="award">
+        <div class="award-year">2017</div>
+        <div>
+          <h3 class="award-title">Full Scholarship for Undergraduate Studies</h3>
+          <p>Merit-based, tuition + stipend, awarded for exceptional performance in the Colombian national exam (ICFES).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <header class="sec-header">
+        <span class="sec-num">§03</span>
+        <h2 class="sec-title">Experience</h2>
+        <span class="sec-aside">// 5+ years across academia &amp; industry</span>
+      </header>
+
+      <article class="entry">
+        <div>
+          <h3 class="entry-title">Research Assistant</h3>
+          <div class="entry-org">University of Delaware · NASA collaboration</div>
+        </div>
+        <div class="entry-meta">Jan 2022 — Present</div>
+        <div class="entry-body">
+          <ul>
+            <li>Designed and implemented multimodal Vision Transformers and Diffusion Models, increasing the 3D resolution of imaging products captured by NASA missions by up to <em>18×</em>.</li>
+            <li>Reduced Satellite LiDAR simulation time by <em>92%</em> via KD-Tree querying in 3D point clouds.</li>
+            <li>Built a simulation platform generating diverse, configurable, high-quality datasets for Satellite LiDAR research.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 class="entry-title">Teaching Assistant</h3>
+          <div class="entry-org">University of Delaware</div>
+        </div>
+        <div class="entry-meta">Jan 2023 — Present</div>
+        <div class="entry-body">
+          <ul>
+            <li>Teaching assistant for graduate-level <em>Statistical Learning</em> and <em>Imaging and Deep Learning</em>.</li>
+            <li>Responsible for teaching, tutoring, and grading.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 class="entry-title">Software Engineer Intern</h3>
+          <div class="entry-org">Universidad de La Sabana</div>
+        </div>
+        <div class="entry-meta">Apr 2020 — Jun 2021</div>
+        <div class="entry-body">
+          <ul>
+            <li>Developed an anomaly detection system for time-series physiological data, ensuring reliable performance of medical devices.</li>
+            <li>Supported validation of the system by the Colombian medical court.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div>
+          <h3 class="entry-title">Humanoid Robotics Researcher</h3>
+          <div class="entry-org">Universidad de La Sabana — Sabana Herons Team</div>
+        </div>
+        <div class="entry-meta">Apr 2018 — Jan 2020</div>
+        <div class="entry-body">
+          <ul>
+            <li>Developed genetic algorithms for the NAO humanoid platform, contributing to a runner-up finish at <em>RoboCup SPL</em>.</li>
+            <li>Led the Sabana Herons Team in one of the world's most prestigious robotics competitions.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section id="skills">
+      <header class="sec-header">
+        <span class="sec-num">§04</span>
+        <h2 class="sec-title">Skills &amp; Tech Stack</h2>
+        <span class="sec-aside">// what i build with</span>
+      </header>
+
+      <div class="skills-grid">
+        <div class="skill-label">research</div>
+        <div class="chips">
+          <span class="chip primary">Generative AI</span>
+          <span class="chip primary">Deep Learning</span>
+          <span class="chip">Vision Transformers</span>
+          <span class="chip">Diffusion Models</span>
+          <span class="chip">LLMs</span>
+          <span class="chip">NLP</span>
+          <span class="chip">Remote Sensing</span>
+          <span class="chip">LiDAR</span>
         </div>
 
-        <!-- TODO: Add Short CV and Long CV -->
-        <div class="page-layout">
-            <aside class="profile-sidebar" id="about-section">
-                <div class="profile-header">
-                    <div class="profile-identity">
-                        <p class="name-tag mt-0 mb-0">Nestor F. <br>  Porras-Diaz</p>
-                        <p class="name-desc">AI Researcher & Computer Engineer <br> Ph.D. (C) at University of Delaware</p>
-                        <div class="profile-social mt-3">
-                            <a class="me-3" href="https://github.com/nestorpodi">
-                                <i class="social-logo fab fa-github fa-2x"></i>
-                            </a>
-                            <a class="me-3" href="https://www.linkedin.com/in/nestorpodi/">
-                                <i class="social-logo fab fa-linkedin fa-2x"></i>
-                            </a>
-                            <a class="me-3" href="https://scholar.google.com/citations?user=X7wRPgQAAAAJ">
-                                <i class="social-logo fab fa-google-scholar fa-2x"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <img src="../static/imgs/warrior.jpeg" alt="nestorpodi" class="circle-img profile-photo">
-                </div>
-                <p class="about-details mb-0 text-justify">
-                    Ph.D. Candidate and computer engineer specializing in Generative AI, Deep Learning, and Data Science, with multiple journal and conference publications. Experienced in designing and implementing advanced models, including Transformers, Vision Transformers, and Diffusion Models. Passionate about Large Language Models (LLMs) and Natural Language Processing (NLP). Currently collaborating with teams at the University of Delaware and NASA to improve remote sensing imagery systems.
-                </p>
-            </aside>
-
-            <main class="main-content">
-
-        <!-- <div class="container container-section" id="projects-section">
-            <div class="row justify-content-center">
-                <div style="width: 600px;" class="section-container col-md-8 col-lg-6 px-3">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Projects:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Data Mining Algorithms Implementation.</p>
-                                    <p class="mt-0 mb-0 proj-details">Implementation of the algorithms in the book <em>Data Mining and Analysis, Fundamental Concepts and Algorithms</em> by Mohammed J. Zaki</p>
-                                </div>
-                                <div class="text-lg-end text-start">
-                                    <p class="proj-details my-0" style="white-space: nowrap">
-                                        <a class="custom-link" href="https://github.com/nestorpodi/data-mining-analysis">
-                                            GitHub Repository
-                                        </a>
-                                    </p>
-                                    <p class="proj-details my-0" style="white-space: nowrap">Status: In Progress</p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Data Structures and Algorithms Implementation.</p>
-                                    <p class="mt-0 mb-0 proj-details">Implementation of the most common Data Structures and Algorithms</p>
-                                </div>
-                                <div class="text-lg-end text-start">
-                                    <p class="proj-details my-0" style="white-space: nowrap">
-                                        <a class="custom-link" href="https://github.com/nestorpodi">
-                                            GitHub Repository
-                                        </a>
-                                    </p>
-                                    <p class="proj-details my-0" style="white-space: nowrap">Status: In Progress</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
-
-                <section class="container-section" id="education-section">
-                    <div class="section-container">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Education:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Ph.D. and Ms.C. in ECE </p>
-                                    <p class="section-subsubtitle mb-0">University of Delaware </p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> Jan 2022 - Present</p>
-                                </div>
-                            </div>
-                            <p class="proj-details mt-0 mb-0"><i>Research:</i> Enhancement of remote sensing imaging systems with Generative AI.</p>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mt-0 mb-0">Bachelor of Computer Engineering</p>
-                                    <p class="section-subsubtitle mb-0"> Universidad de La Sabana </p>
-                                    <!-- <p class="proj-details mt-0 mb-0">Computer Engineering.</p> -->
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> Jan 2017 - Dec 2021</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    </div>
-                </section>
-
-                <section class="container-section" id="awards-section">
-                    <div class="section-container">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Awards:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Distinguished Student Award</p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> 2020</p>
-                                </div>
-                            </div>
-                            <p class="proj-details mt-0 mb-0">Recognized for outstanding academic achievement with one of the highest GPAs, as well as excellence in extracurricular activities.</p>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mt-0 mb-0">Full Scholarship for Undergraduate Studies <br> (Tuition waiver and stipend)</p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> 2017</p>
-                                </div>
-                            </div>
-                            <p class="proj-details mt-0 mb-0">Awarded a merit-based full scholarship for exceptional performance in the Colombian national
-                                exam, covering the entirety of undergraduate studies.</p>
-                        </li>
-                    </ul>
-                    </div>
-                </section>
-
-                <section class="container-section" id="experience-section">
-                    <div class="section-container">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Experience:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Research Assistant</p>
-                                    <p class="section-subsubtitle mb-0">University of Delaware </p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> Jan 2022 - Present</p>
-                                </div>
-                            </div>
-
-                            <ul class="dashed-list mb-0">
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Designed and implemented multimodal Vision Transformers and Diffusion Models to increase by up to 18x the 3D resolution of imaging products captured by NASA missions.</p>
-                                </li>
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Reduced the time to simulate Satellite LiDAR systems by 92% through the implementation of KD-Tree querying in 3D point clouds.</p>
-                                </li>
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Designed and implemented a simulation platform to generate diverse, configurable, and high-quality datasets for Satellite LiDAR research, enhancing data accessibility and research efficiency.</p>
-                                </li>
-                            </ul>
-
-                            <!-- <p class="more-info-link mb-0 ps-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpOne" aria-expanded="false" aria-controls="collapseExpOne"> <span class="symbol"></span> More info:</p> -->
-                            <!-- <div id="collapseExpOne" class="collapse my-0">
-                                <p class="proj-details mb-0">Implementation of simulation platform of satellite LiDAR systems. This platform has been used in multiple publications.</p>
-                            </div> -->
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Teaching Assistant</p>
-                                    <p class="section-subsubtitle mb-0">University of Delaware</p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap"> Jan 2023 - Present</p>
-                                </div>
-                            </div>
-
-                            <ul class="dashed-list mb-0">
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Teaching assistant in the graduate-level courses <i>Statistical Learning</i>, and <i>Imaging and Deep Learning</i>. Responsible for teaching, tutoring, and grading.</p>
-                                </li>
-                            </ul>
-
-
-                            <!-- <p class="more-info-link mb-0 ps-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpTwo" aria-expanded="false" aria-controls="collapseExpOne"> <span class="symbol"></span> More info:</p>
-                            <div id="collapseExpTwo" class="collapse my-0">
-                                <p class="proj-details mb-0" style="white-space: nowrap">TA for ELEG/FSAN815 and ELEG604/804</p>
-                            </div> -->
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Software Engineer Internship</p>
-                                    <p class="section-subsubtitle mb-0">Universidad de La Sabana</p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap">Apr 2020 to Jun 2021</p>
-                                </div>
-                            </div>
-
-                            <ul class="dashed-list mb-0">
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Designed and implemented an interface for monitoring physiological metrics of critical care patients on open-source operating systems for a low-cost mechanical ventilator for COVID-19 patients.</p>
-                                </li>
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Developed an anomaly detection system for time-series physiological data, ensuring reliable performance of medical devices and supporting validation by the Colombian medical court.</p>
-                                </li>
-                            </ul>
-
-                            
-                            <!-- <p class="more-info-link mb-0 ps-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpOThree" aria-expanded="false" aria-controls="collapseExpOne"> <span class="symbol"></span> More info:</p>
-                            <div id="collapseExpOThree" class="collapse my-0">
-                                <p class="proj-details mb-0" style="white-space: nowrap">Desktop app with Java FX</p>
-                            </div> -->
-                        </li>
-
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Humanoid Robotics Researcher</p>
-                                    <p class="section-subsubtitle mb-0">Universidad de La Sabana </p>
-                                </div>
-                                <div>
-                                    <p class="date-details proj-details mb-0" style="white-space: nowrap">Apr 2018 - Jan 2020</p>
-                                </div>
-                            </div>
-
-                            <ul class="dashed-list mb-0">
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Developed genetic algorithms for the NAO humanoid robotics platform, enhancing defensive strategies and contributing to the team's runner-up finish at the RoboCup SPL, with research recognized by the RoboCup Committee.</p>
-                                </li>
-                                <li class="dashed-el proj-name mb-0">
-                                    <p class="exp-details mt-0">Led the Sabana Herons Team in RoboCup SPL, one of the world's most prestigious robotics competitions, driving technical innovation and team performance.</p>
-                                </li>
-                            </ul>
-
-
-                            <!-- <p class="more-info-link mb-0 ps-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpFour" aria-expanded="false" aria-controls="collapseExpOne"> <span class="symbol"></span> More info:</p>
-                            <div id="collapseExpFour" class="collapse my-0">
-                                <p class="proj-details mb-0" style="white-space: nowrap">C++ Implementation on robot NAO platform</p>
-                            </div> -->
-                        </li>
-                    </ul>
-                    </div>
-                </section>
-
-
-        <!-- <div class="container container-section" id="courses-section">
-            <div class="row justify-content-center">
-                <div style="width: 600px;" class="section-container col-md-8 col-lg-6 px-3">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Courses:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">GCP - Coursera & Google</p>
-                                    <p class="proj-details mt-0 mb-0">ML on Google Cloud Systems.</p>
-                                </div>
-                                <div>
-                                    <p class="proj-details mb-0" style="white-space: nowrap"> Status: In progress</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Add certifications when you get one  -->
-
-        <!-- <div class="container container-section">
-            <div class="row justify-content-center">
-                <div style="width: 600px;" class="section-container col-md-8 col-lg-6 px-3">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Skills:</p>
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-0">Python </li>
-                        <li class="dashed-el proj-name mb-0">C++ </li>
-                        <li class="dashed-el proj-name mb-0">SQL </li>
-                        <li class="dashed-el proj-name mb-0">Pytorch </li>
-                        <li class="dashed-el proj-name mb-0">Pandas </li>
-                        <li class="dashed-el proj-name mb-0">Inkscape </li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
-
-                <section class="container-section" id="publications-section">
-                    <div class="section-container">
-                    <p class="section-title mt-lg-0 mt-0 mb-0">Publications:</p>                
-                    <ul class="dashed-list mb-0">
-                        <li class="dashed-el proj-name mb-4">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Transformer End-to-End Optimization of Compressive LiDARs Using Imaging Spectroscopy Side Information</p>
-                                    <p class="proj-details mb-0">IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1-17, 2024, doi:<a class="custom-link" href="https://doi.org/10.1109/TGRS.2024.3401614">10.1109/TGRS.2024.3401614</a></p>
-                                    <p class="proj-details mt-0 mb-0"><b>Nestor Porras-Diaz</b>; Andres Ramirez-Jaime; Gonzalo R. Arce; Karelia Pena-Pena; David Harding; Mark Stephen</p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-4">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Multi-Modal Transformer for Compressive LiDARs Using Hyperspectral Imaging Side-Information</p>
-                                    <p class="proj-details mb-0">IGARSS 2024 - 2024 IEEE International Geoscience and Remote Sensing Symposium, Athens, Greece, 2024, pp. 2451-2454, doi:<a class="custom-link" href="https://doi.org/10.1109/IGARSS53475.2024.10641449">10.1109/IGARSS53475.2024.10641449</a></p>
-                                    <p class="proj-details mt-0 mb-0"><b>N. Porras-Diaz</b>; A. Ramirez-Jaime; G. R. Arce; R. Vargas; D. Harding; M. Stephen</p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-4">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">Super-Resolution of Satellite Lidars for Forest Studies Via Generative Adversarial Networks</p>
-                                    <p class="proj-details mb-0">IGARSS 2024 - 2024 IEEE International Geoscience and Remote Sensing Symposium, Athens, Greece, 2024, pp. 2271-2274, doi:<a class="custom-link" href="https://doi.org/10.1109/IGARSS53475.2024.10641698">10.1109/IGARSS53475.2024.10641698</a></p>
-                                    <p class="proj-details mt-0 mb-0">A. Ramirez-Jaime; <b>N. Porras-Diaz</b>; G. R. Arce; D. Harding; M. Stephen; J. MacKinnon</p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="dashed-el proj-name mb-4">
-                            <div class="d-flex flex-column flex-sm-row">
-                                <div class="flex-grow-1">
-                                    <p class="section-subtitle mb-0">High altitude computational Lidar emulation and machine learning reconstruction for Earth sciences</p>
-                                    <p class="proj-details mb-0">Proc. SPIE 13036, Big Data VI: Learning, Analytics, and Applications, 1303606 (10 June 2024); doi:<a class="custom-link" href="https://doi.org/10.1117/12.3025299">10.1117/12.3025299</a></p>
-                                    <p class="proj-details mt-0 mb-0">Gonzalo R. Arce, Andres Ramirez-Jaime, <b>Nestor Porras-Diaz</b></p>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                    </div>
-                </section>
-            </main>
+        <div class="skill-label">languages</div>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">C++</span>
+          <span class="chip">C</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Rust</span>
+          <span class="chip">MATLAB</span>
+          <span class="chip">SQL</span>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../static/js/dynamics.js?v=2"></script>
-    </body>
+        <div class="skill-label">frameworks</div>
+        <div class="chips">
+          <span class="chip">PyTorch</span>
+          <span class="chip">JAX</span>
+          <span class="chip">TensorFlow</span>
+          <span class="chip">HuggingFace</span>
+          <span class="chip">Lightning</span>
+          <span class="chip">scikit-learn</span>
+          <span class="chip">NumPy</span>
+          <span class="chip">Pandas</span>
+        </div>
+
+        <div class="skill-label">tooling</div>
+        <div class="chips">
+          <span class="chip">CUDA</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Slurm</span>
+          <span class="chip">Git</span>
+          <span class="chip">Linux</span>
+          <span class="chip">AWS</span>
+          <span class="chip">Weights &amp; Biases</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <header class="sec-header">
+        <span class="sec-num">§05</span>
+        <h2 class="sec-title">Publications</h2>
+        <span class="sec-aside" id="pubCount">// 4 papers</span>
+      </header>
+
+      <div class="pub-filters" id="pubFilters">
+        <button class="pub-filter active" data-filter="all">all</button>
+        <button class="pub-filter" data-filter="2024">2024</button>
+        <button class="pub-filter" data-filter="journal">journal</button>
+        <button class="pub-filter" data-filter="conference">conference</button>
+      </div>
+
+      <div id="pubList">
+        <article class="pub" data-year="2024" data-type="journal">
+          <h3 class="pub-title">Transformer End-to-End Optimization of Compressive LiDARs Using Imaging Spectroscopy Side Information</h3>
+          <div class="pub-venue">IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1–17 · <a href="#">doi:10.1109/TGRS.2024.3401614</a></div>
+          <div class="pub-authors"><span class="me">Nestor Porras-Diaz</span>; Andres Ramirez-Jaime; Gonzalo R. Arce; Karelia Pena-Pena; David Harding; Mark Stephen</div>
+          <div class="pub-actions">
+            <button class="pub-action copy-bib" data-bib="porras2024transformer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              copy bibtex
+            </button>
+            <a href="#" class="pub-action" style="border-bottom:1px solid var(--line-strong)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              doi
+            </a>
+            <span class="pub-year">2024</span>
+          </div>
+        </article>
+
+        <article class="pub" data-year="2024" data-type="conference">
+          <h3 class="pub-title">Multi-Modal Transformer for Compressive LiDARs Using Hyperspectral Imaging Side-Information</h3>
+          <div class="pub-venue">IGARSS 2024 — IEEE Intl. Geoscience &amp; Remote Sensing Symposium, Athens, Greece · <a href="#">doi:10.1109/IGARSS53475.2024.10641449</a></div>
+          <div class="pub-authors"><span class="me">N. Porras-Diaz</span>; A. Ramirez-Jaime; G. R. Arce; R. Vargas; D. Harding; M. Stephen</div>
+          <div class="pub-actions">
+            <button class="pub-action copy-bib" data-bib="porras2024multimodal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              copy bibtex
+            </button>
+            <a href="#" class="pub-action" style="border-bottom:1px solid var(--line-strong)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              doi
+            </a>
+            <span class="pub-year">2024</span>
+          </div>
+        </article>
+
+        <article class="pub" data-year="2024" data-type="conference">
+          <h3 class="pub-title">Super-Resolution of Satellite Lidars for Forest Studies Via Generative Adversarial Networks</h3>
+          <div class="pub-venue">IGARSS 2024 — IEEE Intl. Geoscience &amp; Remote Sensing Symposium, Athens, Greece · <a href="#">doi:10.1109/IGARSS53475.2024.10641698</a></div>
+          <div class="pub-authors">A. Ramirez-Jaime; <span class="me">N. Porras-Diaz</span>; G. R. Arce; D. Harding; M. Stephen; J. MacKinnon</div>
+          <div class="pub-actions">
+            <button class="pub-action copy-bib" data-bib="ramirez2024superres">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              copy bibtex
+            </button>
+            <a href="#" class="pub-action" style="border-bottom:1px solid var(--line-strong)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              doi
+            </a>
+            <span class="pub-year">2024</span>
+          </div>
+        </article>
+
+        <article class="pub" data-year="2024" data-type="conference">
+          <h3 class="pub-title">High altitude computational Lidar emulation and machine learning reconstruction for Earth sciences</h3>
+          <div class="pub-venue">Proc. SPIE 13036, Big Data VI: Learning, Analytics, and Applications, 1303606 · <a href="#">doi:10.1117/12.3025299</a></div>
+          <div class="pub-authors">Gonzalo R. Arce; Andres Ramirez-Jaime; <span class="me">Nestor Porras-Diaz</span></div>
+          <div class="pub-actions">
+            <button class="pub-action copy-bib" data-bib="arce2024highaltitude">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              copy bibtex
+            </button>
+            <a href="#" class="pub-action" style="border-bottom:1px solid var(--line-strong)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              doi
+            </a>
+            <span class="pub-year">2024</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="languages">
+      <header class="sec-header">
+        <span class="sec-num">§06</span>
+        <h2 class="sec-title">Languages</h2>
+      </header>
+
+      <div class="langs">
+        <div class="lang-row">
+          <div class="lang-head"><span class="lang-name">Spanish</span><span class="lang-level">native</span></div>
+          <div class="lang-bar"><span style="width:100%"></span></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-head"><span class="lang-name">English</span><span class="lang-level">C1 · professional</span></div>
+          <div class="lang-bar"><span style="width:90%"></span></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-head"><span class="lang-name">Portuguese</span><span class="lang-level">B1 · conversational</span></div>
+          <div class="lang-bar"><span style="width:55%"></span></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-head"><span class="lang-name">French</span><span class="lang-level">A2 · basic</span></div>
+          <div class="lang-bar"><span style="width:30%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <header class="sec-header">
+        <span class="sec-num">§07</span>
+        <h2 class="sec-title">Gallery</h2>
+        <span class="sec-aside">// research &amp; life</span>
+      </header>
+
+      <div class="gallery">
+        <div class="gphoto">igarss-2024.jpg</div>
+        <div class="gphoto">robocup-spl.jpg</div>
+        <div class="gphoto">nasa-goddard.jpg</div>
+        <div class="gphoto">lidar-rig.jpg</div>
+        <div class="gphoto">defense-day.jpg</div>
+        <div class="gphoto">delaware.jpg</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast">copied to clipboard</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Theme toggle ─────────────────────────────────────────────
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    themeIcon.innerHTML = t === 'dark' ? sunSvg : moonSvg;
+    try { localStorage.setItem('npd-theme', t); } catch {}
+  }
+  const stored = (() => { try { return localStorage.getItem('npd-theme'); } catch { return null; } })();
+  setTheme(stored || 'light');
+  themeBtn.addEventListener('click', () => {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Scroll-spy for nav ───────────────────────────────────────
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections = [...navLinks].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  const spy = () => {
+    const y = window.scrollY + 120;
+    let active = sections[0]?.id;
+    for (const s of sections) if (s.offsetTop <= y) active = s.id;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+  };
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  // Publication filters ──────────────────────────────────────
+  const filters = document.querySelectorAll('.pub-filter');
+  const pubs = document.querySelectorAll('.pub');
+  const pubCount = document.getElementById('pubCount');
+  filters.forEach(b => b.addEventListener('click', () => {
+    filters.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const f = b.dataset.filter;
+    let n = 0;
+    pubs.forEach(p => {
+      const show = f === 'all' || p.dataset.year === f || p.dataset.type === f;
+      p.style.display = show ? '' : 'none';
+      if (show) n++;
+    });
+    pubCount.textContent = `// ${n} paper${n === 1 ? '' : 's'}`;
+  }));
+
+  // BibTeX copy ──────────────────────────────────────────────
+  const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+  document.querySelectorAll('.copy-bib').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const key = btn.dataset.bib;
+      const article = btn.closest('.pub');
+      const title = article.querySelector('.pub-title').textContent.trim();
+      const venue = article.querySelector('.pub-venue').textContent.trim();
+      const authors = article.querySelector('.pub-authors').textContent.trim();
+      const bib = `@article{${key},\n  title   = {${title}},\n  author  = {${authors}},\n  journal = {${venue}},\n  year    = {2024}\n}`;
+      try {
+        await navigator.clipboard.writeText(bib);
+        showToast('bibtex copied');
+      } catch {
+        showToast('copy failed');
+      }
+    });
+  });
+
+  // CV download stub ─────────────────────────────────────────
+  document.getElementById('cvBtn').addEventListener('click', e => {
+    e.preventDefault();
+    showToast('CV.pdf — placeholder');
+  });
+</script>
+
+</body>
 </html>

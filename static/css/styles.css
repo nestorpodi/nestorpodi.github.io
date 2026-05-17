@@ -235,11 +235,14 @@ nav,
 @media (min-width: 992px) {
     :root {
         --page-gutter-x: 2.5rem;
+        --sidebar-width: 520px;
+        --column-gap: 4.5rem;
+        --desktop-content-top: calc(var(--navbar-height) + 2.5rem);
     }
 
     .page-layout {
-        padding-top: var(--navbar-height);
-        padding-left: calc(520px + 8rem + var(--page-gutter-x));
+        padding-top: var(--desktop-content-top);
+        padding-left: calc(var(--sidebar-width) + var(--column-gap) + var(--page-gutter-x));
     }
 
     #about-section {
@@ -251,10 +254,10 @@ nav,
         flex-direction: column;
         justify-content: center;
         position: fixed;
-        top: var(--navbar-height);
+        top: var(--desktop-content-top);
         left: max(var(--page-gutter-x), calc((100vw - var(--site-max-width)) / 2 + var(--page-gutter-x)));
-        width: 520px;
-        height: calc(100vh - var(--navbar-height));
+        width: var(--sidebar-width);
+        height: calc(100vh - var(--desktop-content-top));
         box-sizing: border-box;
         padding: 1.5rem 0;
     }
