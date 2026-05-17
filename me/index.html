@@ -15,41 +15,66 @@
     <body>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="container navbar-container">
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navSidePanel" aria-controls="navSidePanel" aria-label="Open menu">
                     <span class="navbar-toggler-icon"></span>
-                </button> -->
-
+                </button>
+                <a class="navbar-brand navbar-brand-mobile d-lg-none" href="#about-section">NestorPoDi</a>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <a class="navbar-brand me-5" href="#">NestorPoDi</a>
+                    <a class="navbar-brand me-5 d-none d-lg-inline-block" href="#">NestorPoDi</a>
                     <ul class="navbar-nav">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="#about" onclick="location.href='#about-section'">About</a>
+                            <a class="nav-link active" aria-current="page" href="#about-section">About</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#education" onclick="location.href='#education-section'">Education</a>
+                            <a class="nav-link" href="#education-section">Education</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#education" onclick="location.href='#awards-section'">Awards</a>
+                            <a class="nav-link" href="#awards-section">Awards</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#experience" onclick="location.href='#experience-section'">Experience</a>
+                            <a class="nav-link" href="#experience-section">Experience</a>
                         </li>
-
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#courses" onclick="location.href='#publications-section'">Publications</a>
+                            <a class="nav-link" href="#publications-section">Publications</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
+        <div class="offcanvas offcanvas-start nav-side-panel" tabindex="-1" id="navSidePanel" aria-labelledby="navSidePanelLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="navSidePanelLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#about-section" data-bs-dismiss="offcanvas">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education-section" data-bs-dismiss="offcanvas">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#awards-section" data-bs-dismiss="offcanvas">Awards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience-section" data-bs-dismiss="offcanvas">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#publications-section" data-bs-dismiss="offcanvas">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <!-- TODO: Add Short CV and Long CV -->
         <div class="page-layout">
             <aside class="profile-sidebar" id="about-section">
                 <div class="profile-header">
                     <div class="profile-identity">
-                        <p class="name-tag mt-4 mt-lg-0 mb-0">Nestor F. Porras-Diaz</p>
+                        <p class="name-tag mt-0 mb-0">Nestor F. <br>  Porras-Diaz</p>
                         <p class="name-desc">AI Researcher & Computer Engineer <br> Ph.D. (C) at University of Delaware</p>
                         <div class="profile-social mt-3">
                             <a class="me-3" href="https://github.com/nestorpodi">
@@ -65,7 +90,7 @@
                     </div>
                     <img src="../static/imgs/warrior.jpeg" alt="nestorpodi" class="circle-img profile-photo">
                 </div>
-                <p class="about-details mt-3 mb-0 text-justify">
+                <p class="about-details mb-0 text-justify">
                     Ph.D. Candidate and computer engineer specializing in Generative AI, Deep Learning, and Data Science, with multiple journal and conference publications. Experienced in designing and implementing advanced models, including Transformers, Vision Transformers, and Diffusion Models. Passionate about Large Language Models (LLMs) and Natural Language Processing (NLP). Currently collaborating with teams at the University of Delaware and NASA to improve remote sensing imagery systems.
                 </p>
             </aside>
@@ -384,8 +409,8 @@
             </main>
         </div>
 
-        <script src="../static/js/dynamics.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../static/js/dynamics.js?v=2"></script>
     </body>
 </html>
