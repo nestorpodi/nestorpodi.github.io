@@ -101,9 +101,3 @@ document.querySelectorAll('.copy-bib').forEach(btn => {
     }
   });
 });
-
-// CV download stub ─────────────────────────────────────────
-document.getElementById('cvBtn').addEventListener('click', e => {
-  e.preventDefault();
-  showToast('CV.pdf — placeholder');
-});
